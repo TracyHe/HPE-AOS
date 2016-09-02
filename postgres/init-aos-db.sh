@@ -7,7 +7,7 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     CREATE DATABASE adv_order;
 EOSQL
 
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "adv_account" -f sql/creproc--adv_account--get_all_countries_with_sleep.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "adv_account" -f sql/creproc--adv_account--truncate_account_service_tables.sql
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "adv_catalog" -f sql/creproc--adv_catalog--truncate_catalog_tables.sql
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "adv_account" -f /docker-entrypoint-initdb.d/sql/creproc--adv_account--get_all_countries_with_sleep.sql
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "adv_account" -f /docker-entrypoint-initdb.d/sql/creproc--adv_account--truncate_account_service_tables.sql
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "adv_catalog" -f /docker-entrypoint-initdb.d/sql/creproc--adv_catalog--truncate_catalog_tables.sql
 
