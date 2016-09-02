@@ -51,22 +51,22 @@ ENV PATH /usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
 
-#ADD https://raw.githubusercontent.com/docker-library/postgres/fc36c25f8ac352f1fea6d0e7cf8d9bd92a4e720f/9.4/docker-entrypoint.sh /
-COPY docker-entrypoint.sh /
-COPY init-aos-db.sh /docker-entrypoint-initdb.d
-COPY *.sql /docker-entrypoit-initdb.d/
-COPY HelloWorld.java /tmp/HelloWorld.java
+ADD https://raw.githubusercontent.com/panama69/HPE-AOS/master/postgres/docker-entrypoint.sh /
+RUN chmod 777 /docker-entrypoint.sh
+RUN mkdir /docker-entrypoint-initdb.d/sql
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ADD https://raw.githubusercontent.com/panama69/HPE-AOS/master/postgres/init-aos-db.sh /docker-entrypoint-initdb.d
+ADD https://raw.githubusercontent.com/panama69/HPE-AOS/master/postgres/creproc--adv_account--get_all_countries_with_sleep.sql /docker-entrypoint-initdb.d/sql
+ADD https://raw.githubusercontent.com/panama69/HPE-AOS/master/postgres/creproc--adv_account--truncate_account_service_tables.sql /docker-entrypoint-initdb.d/sql
+ADD https://raw.githubusercontent.com/panama69/HPE-AOS/master/postgres/creproc--adv_catalog--truncate_catalog_tables.sql /docker-entrypoint-initdb.d/sql
+#COPY docker-entrypoint.sh /
+#COPY init-aos-db.sh /docker-entrypoint-initdb.d
+#COPY *.sql /docker-entrypoit-initdb.d/
 
 EXPOSE 5432
-CMD ["postgres"]
 
-
-####################################################
-
-#ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
-#ENV JRE_HOME /usr/lib/jvm/java-8-oracle/jre
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JRE_HOME /usr/lib/jvm/java-8-oracle/jre
 
 #RUN apt-get update && \
 #    apt-get upgrade -y && \
@@ -76,5 +76,6 @@ CMD ["postgres"]
 #    echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
 #    apt-get install -y oracle-java8-installer && \
 #    apt-get clean
+COPY HelloWorld.java /tmp/HelloWorld.java
 
-#RUN apt-get install -y tomcat8
+ENTRYPOINT ["/docker-entrypoint.sh"]
