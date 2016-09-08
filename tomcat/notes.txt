@@ -1,0 +1,22 @@
+
+use this to install Java to OracleLinux
+wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.rpm"
+
+---------------
+
+SLF4J: See http://www.slf4j.org/codes.html#no_static_mdc_binder for further details.
+/usr/local/tomcat/webapps/catalog/WEB-INF/classes/app.properties
+
+----------------
+
+
+Server startup in 45830 ms
+
+--------------
+https://support.cloudbees.com/hc/en-us/articles/216567087-Cache-warnings-in-catalina-logging
+http://stackoverflow.com/questions/26893297/tomcat-8-throwing-org-apache-catalina-webresources-cache-getresource-unable-to
+
+added inside of <Context> cach size to clear up all the warnings
+<Resources cachingAllowed="true" cacheMaxSize="400000" />
+
+---------------
